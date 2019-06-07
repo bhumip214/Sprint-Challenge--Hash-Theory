@@ -8,12 +8,18 @@ Fill out truth tables for the following expressions:
    `(A or not B)`
 
 ```
+for A in [False, True]:
+  for B in [False, True]:
+    print (f"{(A or not B)}")
+```
+
+```
 A     B     result
 -------------------
-0     0       0
+0     0       1
 0     1       0
 1     0       1
-1     1       0
+1     1       1
 ```
 
 2. `(¬A ∨ B) ∧ ¬(A ∧ ¬B)` (alternate: `(!A || B) && !(A && !B)`)
@@ -41,7 +47,7 @@ A     B     result
 for A in [False, True]:
   for B in [False, True]:
     for C in [False, True]:
-      print (f"{( not (A and B)) or ( (A and C) and ( not (B or not C)))}")
+      print (f"{( not (A or B)) or ( (A or C) and ( not (B or not C)))}")
 ```
 
 ```
@@ -49,9 +55,9 @@ A     B     C     result
 -------------------------
 0     0     0       1
 0     0     1       1
-0     1     0       1
-0     1     1       1
-1     0     0       1
+0     1     0       0
+0     1     1       0
+1     0     0       0
 1     0     1       1
 1     1     0       0
 1     1     1       0

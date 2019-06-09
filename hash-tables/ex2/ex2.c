@@ -11,17 +11,35 @@ char **reconstruct_trip(Ticket **tickets, int length)
 
   /* YOUR CODE HERE */
 
+  // loop through tickets array
+  for (int i = 0; i < length; i++)
+  {
+    // store each ticket such that source (the starting location) is the key
+    // and the destination is the value
+    hash_table_insert(ht, tickets[i]->source, tickets[i]->destination);
+  }
+
+  // find a destination of the first flight using a source(starting point) of NONE
+  char *dest = hash_table_retrieve(ht, "NONE");
+
+  // loop again
+  for (int i = 0; i < length; i++)
+  {
+    // assign that destination to first index position in array
+    route[i] = dest;
+    // Find the next destination by updating the source(starting point) with last destination
+    dest = hash_table_retrieve(ht, route[i]);
+  }
   return route;
 }
 
 void print_route(char **route, int length)
 {
-  for (int i = 0; i < length; i++) {
+  for (int i = 0; i < length; i++)
+  {
     printf("%s\n", route[i]);
   }
 }
-
-
 
 #ifndef TESTING
 int main(void)
@@ -46,7 +64,8 @@ int main(void)
 
   print_route(reconstruct_trip(tickets, 3), 3); // PDX, DCA, NONE
 
-  for (int i = 0; i < 3; i++) {
+  for (int i = 0; i < 3; i++)
+  {
     free(tickets[i]);
   }
 
